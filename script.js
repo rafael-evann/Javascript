@@ -21,11 +21,13 @@ function inicio(){
 			nomeCandidato2 = prompt("Digite o nome do candidato:"),
 			nomeCandidato3 = prompt("Digite o nome do candidato:"),
 			nomeGanhador = ""
-			
+		
 		let 
 			opcaoInvalida = false,
 			empate = false
-			
+		
+		let HoraInicio=HoraUrnaInicio();
+
 		// Laço responsável pela votação
 		do{
 			
@@ -35,7 +37,7 @@ function inicio(){
 				console.log("** Opção inválida! \n\n");
 				opcaoInvalida = false;
 			}
-			
+			console.log(HoraInicio);
 			console.log("** Opções de voto: \n\n");
 			console.log("1 | ", nomeCandidato1, "\n");
 			console.log("2 | ", nomeCandidato2, "\n");
@@ -55,38 +57,39 @@ function inicio(){
 	
 		        switch(codigoVoto) {
 				case 200333:
-                    ConfirmaVoto ()
 					break;
 				case 1:
-                    ConfirmaVoto ()
-					votosCandidato1++
-					votosTotais++
+                    ConfirmaVoto ();
+					votosCandidato1++;
+					votosTotais++;
 					break;
 				case 2:
-                    ConfirmaVoto ()
-					votosCandidato2++
-					votosTotais++
+                    ConfirmaVoto ();
+					votosCandidato2++;
+					votosTotais++;
 					break;
 				case 3:
-                    ConfirmaVoto ()
+                    ConfirmaVoto ();
 					votosCandidato3++
-					votosTotais++
+					votosTotais++;
 					break;
 			    case  5:
-                    ConfirmaVoto ()
-					votosBranco++
-					votosTotais++
+                    ConfirmaVoto ();
+					votosBranco++;
+					votosTotais++;
 					break;
 				case 8:
-                    ConfirmaVoto ()
-					votosNulo++
-					votosTotais++
+                    ConfirmaVoto ();
+					votosNulo++;
+					votosTotais++;
 					break;
 				default:
 					opcaoInvalida = true;
                     break;
 			}
 		} while (codigoVoto != 200333)
+
+		HoraTermino=HoraUrnaTermino();
 
 		
 		// determinar o ganhador, com situação de empate
@@ -117,19 +120,19 @@ function inicio(){
 			console.log("Votos totais: ", votosTotais, "\n")
 			
 			console.log("Votos no candidato ",nomeCandidato1, ": ", votosCandidato1, " (", 
-				(votosCandidato1) / (votosTotais) * 100.0, "%)\n")
+				((votosCandidato1) / (votosTotais) * 100.0).toFixed(2), "%)\n")
 			
             console.log("Votos no candidato ",nomeCandidato2, ": ", votosCandidato2, " (", 
-				(votosCandidato2) / (votosTotais) * 100.0, "%)\n")
+				(votosCandidato2) / (votosTotais) * 100.0.toFixed(2), "%)\n")
 			
             console.log("Votos no candidato ",nomeCandidato3, ": ", votosCandidato3, " (", 
-				(votosCandidato3) / (votosTotais) * 100.0, "%)\n")
+				(votosCandidato3) / (votosTotais) * 100.0.toFixed(2), "%)\n")	
 			
             console.log("Votos em branco: ", votosBranco, " (", 
-				(votosBranco) / (votosTotais) * 100.0, "%)\n")
+				(votosBranco) / (votosTotais) * 100.0.toFixed(2), "%)\n")
 			
             console.log("Votos nulos: ", votosNulo, " (", 
-				(votosNulo) / (votosTotais) * 100.0, "%)\n\n")
+				(votosNulo) / (votosTotais) * 100.0.toFixed(2), "%)\n\n")
 				
 		} else{
 			
@@ -145,6 +148,8 @@ function inicio(){
 		} else {
 			console.log("** Não foi possível determinar um ganhador nesta urna\n\n")
 		}
+		console.log(HoraInicio);
+		console.log(HoraTermino);
 		
 		
 	}
@@ -155,3 +160,22 @@ function ConfirmaVoto (){
     setTimeout=2000;
     audio.play();
 }
+function HoraUrnaInicio(){
+	var dataAtual = new Date();
+	var dia = dataAtual.getDate();
+	var mes = (dataAtual.getMonth() + 1);
+	var ano = dataAtual.getFullYear();
+	var horas = dataAtual.getHours();
+	var minutos = dataAtual.getMinutes();
+	return "A votação começou no dia:" + dia + "/" + mes + " de " + ano + ". Agora são " + horas + ":" + minutos + "h.";
+}
+function HoraUrnaTermino(){
+	var dataAtual = new Date();
+	var dia = dataAtual.getDate();
+	var mes = (dataAtual.getMonth() + 1);
+	var ano = dataAtual.getFullYear();
+	var horas = dataAtual.getHours();
+	var minutos = dataAtual.getMinutes();
+	return "A votação acabou no dia: " + dia + "/" + mes + " de " + ano + ". Agora são " + horas + ":" + minutos + "h.";
+}
+
